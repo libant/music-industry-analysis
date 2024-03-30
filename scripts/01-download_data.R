@@ -1,26 +1,21 @@
 #### Preamble ####
-# Purpose: Downloads and saves the data from [...UPDATE THIS...]
-# Author: Rohan Alexander [...UPDATE THIS...]
-# Date: 11 February 2023 [...UPDATE THIS...]
-# Contact: rohan.alexander@utoronto.ca [...UPDATE THIS...]
+# Purpose: Downloads and saves the data from Kabble
+# Author: Liban Timir
+# Date: 18 April 2024
+# Contact: liban.timir@mail.utoronto.ca
 # License: MIT
-# Pre-requisites: [...UPDATE THIS...]
-# Any other information needed? [...UPDATE THIS...]
+
 
 
 #### Workspace setup ####
-library(opendatatoronto)
 library(tidyverse)
-# [...UPDATE THIS...]
+library(sf)
 
 #### Download data ####
-# [...ADD CODE HERE TO DOWNLOAD...]
-
-
+music_data <- read_csv("/Users/victortimir/Downloads/MusicData.csv")
 
 #### Save data ####
-# [...UPDATE THIS...]
-# change the_raw_data to whatever name you assigned when you downloaded it.
-write_csv(the_raw_data, "inputs/data/raw_data.csv") 
+# change music_data to whatever name you assigned when you downloaded it.
+write_csv(music_data, "data/raw_data/raw_data.csv") 
 
          
