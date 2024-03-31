@@ -1,13 +1,11 @@
 ---
-title: "My title"
-subtitle: "My subtitle if needed"
+title: "The Diminishing Returns of Music in the Digital Era"
 author: 
-  - First author
-  - Another author
-thanks: "Code and data are available at: LINK."
-date: today
+  - Liban Timir
+thanks: "Code and data are available at: https://github.com/libant/music-industry-analysis"
+date: 04-18-2024
 date-format: long
-abstract: "First sentence. Second sentence. Third sentence. Fourth sentence."
+abstract: "This paper explores the dynamic between digital transformation and revenue models in the music industry, inspecting data from industry sales to dissect the economic consequences of the digital shift. It builds upon and broadens existing research, pinpointing a significant downturn in revenue per unit despite escalated consumption rates, with a focus on the pivotal years (early 2000s) marking the industry's digitalization. The paper reveals a nuanced relationship: the paradoxical increase in access to music paired with decreased monetary valuation. These findings underscore the profound influence of digital market forces on the music industry and highlight the critical need for adaptive economic strategies within the rapidly evolving digital landscape."
 format: pdf
 number-sections: true
 bibliography: references.bib
@@ -25,10 +23,13 @@ library(palmerpenguins)
 
 # Introduction
 
-You can and should cross-reference sections and sub-sections. We use @citeR and @rohan.
+In the digital dawn of the 21st century, the music industry has experienced an unprecedented transformation, ushered in by the proliferation of the internet and a resultant seismic shift in consumer behavior. Specifically, the introduction of file sharing services like Napster redefined the way music is distributed, valued, and consumed by effectively making music free to share, download, and listen to online. The Recording Industry Association of America (RIAA) sought to shut Napster down and it did within 2 years. RIAA may have won the battle against Napster but lost the war against the internet. Historically, the industry's financial success was predicated on physical sales, but the advent of the internet has catalyzed a pivot to digital formats — a pivot not without its economic consequences. While the democratization of music through digital platforms has expanded reach, it has also ushered in a complex debate about the monetary value of music, with implications for artists, producers, and the industry at large.
 
-The remainder of this paper is structured as follows. @sec-data....
+This paper seeks to explain the economic narrative of the music industry's journey through the digital age. By analyzing a comprehensive dataset on music sales, we unravel how the industry's revenue per unit has been affected since the decline of physical media. Amidst the backdrop of booming digital consumption, we find an inverse trajectory in revenue, raising questions about the long-term sustainability of current digital revenue models. 
 
+We employed quantitative methods to scrutinize patterns in music sales, juxtaposing the eras of physical dominance with the digital revolution. Our findings present that while digital consumption has indeed skyrocketed, the economic value per unit of music has suffered a significant decline. The implications of this research are multifaceted — highlighting the critical need for innovation in monetization strategies for music in an increasingly digital world.
+
+The structure of the paper is as follows: We commence with a detailed examination of the dataset, charting the industry's sales and revenue trends (@sec-data). Subsequent sections present our analysis of the data (@sec-results), revealing pivotal insights into the economic shifts within the industry. We then pivot to a discussion (@sec-discussion), contextualizing our findings within the broader framework of digital economics and their relevance to stakeholders. Finally, we conclude by reflecting on the implications of our research, considering the broader paradigm of value creation and capture in the digital era, and proposing pathways for future research. The analysis was conducted using the statistical programming language R (@citeR), utilizing packages such as rstanarm (@rstanarm), and additional papers such as "".
 
 
 # Data {#sec-data}
@@ -103,7 +104,7 @@ We expect a positive relationship between the size of the wings and time spent a
 We can use maths by including latex between dollar signs, for instance $\theta$.
 
 
-# Results
+# Results {#sec-results}
 
 Our results are summarized in @tbl-modelresults.
 
@@ -138,7 +139,7 @@ modelsummary::modelsummary(
 
 
 
-# Discussion
+# Discussion {#sec-discussion}
 
 ## First discussion point {#sec-first-point}
 
