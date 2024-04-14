@@ -17,6 +17,9 @@ bibliography: references.bib
 #| message: false
 
 library(tidyverse)
+library(knitr)
+library(readr)
+library(ggplot2)
 library(palmerpenguins)
 ```
 
@@ -50,7 +53,7 @@ The key variables included in the Kaggle dataset and their respective measures a
 2. Format: The music distribution format, categorized into variaous phyiscal formats such as Vinyl, CD, and various digital formats like Streaming and Downloads.
 3. Revenue: Measured in millions and adjusted for inflation to present a uniform value metric over time.
 
-The inflation adjustment applied to the revenue figures is particularly noteworthy, as it allows for an equitable comparison of the industry's financial status year-over-year, accounting for the changing value of money.
+The inflation adjustment applied to the revenue figures is particularly noteworthy, as it allows for an equitable comparison of the industry's financial status year-over-year, accounting for the changing value of money. Bias should be taken into consideration as the method of revenue tracking has evolved with technology and industry standards. 
 
 ### Revenue by Format 
 Revenue, the central variable in the RIAA dataset cited in the Kaggle dataset, is measured in millions of U.S. dollars and has been adjusted for inflation to 2019 values. The RIAA has segmented revenue into various categories, each corresponding to a different format:
@@ -79,6 +82,38 @@ Revenue, the central variable in the RIAA dataset cited in the Kaggle dataset, i
 22. Synchronization
 
 Each category represents a particular mode of music consumption, and the revenue figures associated with these formats are used to track shifts in consumer preferences and technological advancements. All physical formats and digital formats were cleaned and grouped together. 
+
+## Data Characteristics {#sec-characteristics}
+
+The RIAA dataset published by @RIAA did not require any further data cleaning. @tbl-averagerevenue shows how in this sample, the most valuable format of music consumption is the CD. This is because CDs are cheap to produce and there is a larger return on investment because they are physical format which have a larger cost than digital formats to the consumer. The least valuable format of music consumption is the music video. This may be in part due to the fact that music videos are immensely costly and they are slowly losing traction due to the rise in social media.
+```{r}
+#| echo: false
+#| eval: true
+#| label: tbl-averagerevenue
+#| tbl-cap: "Music Industry Average Revenue per Format"
+#| warning: false
+#| results: asis
+#| 
+music_data <- read_csv("/Users/victortimir/music-industry-analysis/data/raw_data/musicdata-1.csv") 
+
+average_revenue_per_format <- music_data %>%
+  mutate(value_actual = as.numeric(value_actual)) %>%
+  filter(value_actual > 0) %>%
+  group_by(format) %>%
+  summarise(average_revenue = mean(value_actual, na.rm = TRUE)) %>%
+  ungroup() %>%
+  arrange(desc(average_revenue))
+
+average_revenue_per_format$average_revenue <- round(average_revenue_per_format$average_revenue, 2)
+
+average_revenue_table <- kable(head(average_revenue_per_format, 20), 
+                               padding = 5, 
+                               format = "markdown",
+                               digits = 2
+                               )
+
+print(average_revenue_table)
+```
 
 
 Some of our data is of penguins (@fig-bills), from @palmerpenguins.
