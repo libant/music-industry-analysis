@@ -114,7 +114,42 @@ average_revenue_table <- kable(head(average_revenue_per_format, 20),
 
 print(average_revenue_table)
 ```
+\newpage
 
+```{r}
+#| echo: false
+#| eval: true
+#| label: tbl-revenuechange
+#| warning: false
+#| results: asis
+#| 
+music_data <- read_csv("/Users/victortimir/music-industry-analysis/data/raw_data/musicdata-1.csv")
+
+top_formats <- music_data %>%
+  group_by(format) %>%
+  summarise(total_revenue = sum(value_actual, na.rm = TRUE)) %>%
+  top_n(5, total_revenue) %>%
+  pull(format)
+
+top_formats_data <- music_data %>%
+  filter(format %in% top_formats)
+
+top_formats_data <- top_formats_data %>%
+  group_by(format) %>%
+  mutate(yoy_change = (value_actual / lag(value_actual) - 1) * 100) %>%
+  ungroup()
+
+ggplot(top_formats_data, aes(x = year, y = yoy_change, color = format)) +
+  geom_line() +
+  scale_y_continuous(limits = c(-100, 100),
+                     labels = scales::percent) +
+  labs(title = "Year-Over-Year Revenue Change for Top Music Formats",
+       x = "Year",
+       y = "Percentage Change",
+       color = "Format") +
+  theme_minimal() +
+  theme(legend.position = "bottom")
+```
 
 Some of our data is of penguins (@fig-bills), from @palmerpenguins.
 
