@@ -303,6 +303,7 @@ bayesian_model <- brm(value_actual ~ format, data = music_data,
                       chains = 4, iter = 2000, warmup = 500, 
                       control = list(adapt_delta = 0.95),
                       refresh = 0)
+saveRDS(bayesian_model, file = "first_model.rds")
 ```
 
 ```{r}
