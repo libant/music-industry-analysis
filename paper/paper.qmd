@@ -172,48 +172,6 @@ print(average_revenue_table)
 ```
 
 
-
-\newpage
-
-
-Some of our data is of penguins (@fig-bills), from @palmerpenguins.
-
-```{r}
-#| label: fig-bills
-#| fig-cap: Bills of penguins
-#| echo: false
-
-ggplot(penguins, aes(x = island, fill = species)) +
-  geom_bar(alpha = 0.8) +
-  scale_fill_manual(values = c("darkorange","purple","cyan4"),
-                    guide = "none") +
-  theme_minimal() +
-  facet_wrap(~species, ncol = 1) +
-  coord_flip()
-```
-
-Talk more about it.
-
-And also planes (@fig-planes). (You can change the height and width, but don't worry about doing that until you have finished every other aspect of the paper - Quarto will try to make it look nice and the defaults usually work well once you have enough text.)
-
-```{r}
-#| label: fig-planes
-#| fig-cap: Relationship between wing length and width
-#| echo: false
-#| warning: false
-#| message: false
-
-analysis_data <- read_csv(here::here("data/analysis_data/analysis_data.csv"))
-
-analysis_data |> 
-  ggplot(aes(x = width, y = length)) +
-  geom_point(alpha = 0.8) +
-  theme_minimal() +
-  labs(x = "Wing width (mm)",
-       y = "Wing length (mm)")
-```
-
-
 # Model
 
 The goal of our modelling strategy is twofold. Firstly, we seek to evaluate how different music formats contribute to overall industry revenue over time. This involves analyzing the changes in revenue streams from physical sales such as CDs and vinyl to digital formats like streaming and downloads. Secondly, we seek to use these insights to forecast future revenue trends for these formats.
@@ -372,78 +330,31 @@ Overall, this table provides a comprehensive overview of how different music for
 
 # Discussion {#sec-discussion}
 
-## First discussion point {#sec-first-point}
+## Diminishing Returns in the Music Industry {#sec-first-point}
 
-If my paper were 10 pages, then should be be at least 2.5 pages. The discussion is a chance to show off what you know and what you learnt from all this. 
+Our analysis revealed a shift in the music industry from a reliance on physical sales, like CDs and vinyl, to digital formats, especially streaming services. Additionally, we discovered that the revenue from streaming services and digital sales has been more consistent than physical format sales (indicating that more people are listening to music) but have failed to compensate for the revenue from physical format sales. The physical to digital sales transition highlights the industry's capacity to innovate but failure to adapt to technological advancements and changing consumer preferences. This finding is crucial for several reasons. Primarily, it suggests that the music industry has yet to find a pathway to sustain itself and grow in the digital age. Embracing the digital landscape rather than resisting it was the right thing to do. However, more must be done to bring more sizable returns. @Keintz2008TheRI suggests that the next step for the recording industry is to develop a recorded digital music strategy for each country in an effort to restore revenue growth by offering consumers a compelling digital music value proposition. @Wilde2004WhenBM further suggests that the current strategy of the music industry is centered around protecting their traditional business model through technical measures and the search for new business models is the better way to go, even though it may take some time and effort to identify these business models. 
 
-## Second discussion point
+What I believe to be the solution to the music industry's diminishing returns lies with both sentiments. To succeed, there must be a new, convenient business model that offers a compelling value for digital music consumption and an extensive library of music to boot. From the artist perspective, touring has become prohibitively expensive and revenue models tied to streaming services fail to properly compensate them for their work. Due to social media engagement and streaming services, artists are also incentivized to release more music at a faster rate to satisfy each respective algorithm and model. Drake, one of the biggest artists of the 21st century, has arguably benefited the most from a mastery of social media algorithms and streaming service models, as he leveraged his pre-streaming era success to release lengthy projects at an annual rate to maximize streams and increase his social media engagement. In 2013, Thom Yorke from Radiohead pulled all of his own (not counting Radiohead) songs from Spotify in protest at how much it pays artists. In 2007, Radiohead released their album "In Rainbows" independently as a "pay-what-you-want" download, meaning that fans could set their own price. The band's reasoning for this was that it "liberated them from conventional promotional formats and removed barriers to audiences". Services like Bandcamp offer the same thing for smaller artists. If this business model was adopted by larger artists and properly integrated with smartphones and computers, it would offer enough convenience to the consumer to be a reliable alternative that would also generate revenue for artists and the industry as a whole, as it challenges old models and finds new ways to connect with fans.
 
-## Third discussion point
+## The Music Industry Adoption of the Internet {#sec-second-point}
 
-## Weaknesses and next steps
+The data indicates that the internet's role in the music industry signifies a pivotal shift towards a more interconnected and user-centric experience, altering the landscape of the music business and cultural consumption fundamentally. The shift from physical formats to digital formats has revolutionized how music is distributed, accessed, and enjoyed by audiences worldwide. With the advent of the internet, traditional barriers to entry were dismantled, allowing for an unprecedented democratization of music production and consumption in addition to piracy. Artists gained the ability to bypass traditional gatekeepers, reaching listeners directly through online platforms. Consumers embraced this new era of conveniency, where a vast library of music became available at the click of a button. However, this also brought challenges, such as the devaluation of individual tracks in the face of streaming economies and the difficulties for artists to monetize their work effectively. @Mundorf2002RealizingTS additionally proposes that although interactivity has become linked to the Internet, other communication technologies provide interactive options, too. Many of these alternative technologies are complementary to Internet usage in that their reach includes populations that lack regular PC-based Internet access. The challenge facing revenue generation in services like streaming services is finding ideal combinations of entertainment and information features that can be applied to the service in a sufficiently attractive manner to justify the consumer investment in software. This suggests that the essence of increasing revenue in the music industry hinges on the caliber of the user experience — a seamless, enriching, and engaging interaction that makes the digital shift in the music industry not just a convenience but a superior choice for content consumption, a choice that properly connects artists and their fans. 
 
-Weaknesses and next steps should also be included.
+The effect of Tiktok on the music industry can't have been explicitly applied to the present data in this paper because this data cuts off at 2019 and Tiktok started to gain prominence in 2018. However, I think Tiktok perfectly illustrates the quality of the user experience and it's subsequent effect on the music industry. The user-generated content that Tiktok is made up of has opened new doors for revenue through advertising partnerships and virality in addition to some content monetization. Mainly, the platform serves as a marketing tool, enabling artists to build their brand and engage with fans directly. Collectively, these digital alternatives complement streaming by diversifying the revenue portfolio of the industry, showcasing the multifaceted nature of music consumption in the digital age. However, the issue with this is that the complementation of streaming with Tiktok has led to additional conveniency for the consumer. This duo of streaming and Tiktok leads to people consuming music as if it were free, as described by musician James Blake. He specifically argued that Tiktok has negatively affected songwriting by encouraging artists to write differently to appeal to the Tiktok algorithm and the attention deficit of the consumer by presenting a vast library of quick user-generated content tailor made for the consumer. 
 
-\newpage
+## How Does AI Come Into Play? {#sec-third-point}
 
-\appendix
+The integration of artificial intelligence (AI) into the music industry holds immense potential, signaling a significant shift in how music is created, distributed, and consumed. Nowadays, AI algorithms can compose music, personalize listening experiences, and even (attempt to) predict future hits by analyzing vast datasets of listener preferences and music compositions. AI in the music industry could additionally redefine the role of artists, reshape business models, and introduce new legal and ethical dimensions regarding intellectual property. Generally, AI's impact on the music industry is likely to be as disruptive as it is innovative, fostering new art forms while challenging existing paradigms. @Shang2020StudyOT further explores the broader transformation of the music industry's business model, driven by AI and blockchain technology. It additionally suggests that AI has the potential to significantly impact revenue in the music industry, particularly through its influence on technology, creativity, and business models. Since it has been incentivized in the digital age to create faster, synthetic music to release on streaming services at a consistently quick rate, one could argue that AI would act as a complement to streaming services as Tiktok already does. With that comes new revenue streams. However, AI music in theory would pay artists little to nothing. It is too soon to say if AI offers more conveniency for the consumer on a mass scale but the implications of it don't justify it's small revenue boost for the music industry to champion it. 
 
-# Appendix {-}
+## Weaknesses and Next Steps
 
+The analysis within this paper, while thorough, is not without limitations that should be acknowledged. Firstly, the dataset's restriction to revenue figures may overlook the nuanced consumer behaviors and preferences that drive the market. Future research could benefit from integrating qualitative data, such as consumer surveys or artist interviews, to complement the quantitative revenue analysis. Additionally, the rapid pace of technological change means that the dataset may quickly become outdated; continuous data collection and analysis will be crucial to maintain relevance. The dataset only includes information on North America. Incorporating worldwide data with @Keintz2008TheRI suggestions could lead to additional substantial observations.
 
-# Additional data details
+Furthermore, the current dataset does not capture the entire scope of the music industry, such as live performances, merchandise sales, and licensing deals, which are significant revenue streams. Future iterations of this research should aim to include these aspects for a more comprehensive view of the industry's economic landscape.
 
-# Model details {#sec-model-details}
+The industry is also moving towards more immersive and interactive experiences, such as virtual concerts or music NFTs, areas not covered by the present dataset. Including these emerging trends could provide valuable insights into future revenue potentials and shifts in consumer engagement.
 
-## Posterior predictive check
-
-In @fig-ppcheckandposteriorvsprior-1 we implement a posterior predictive check. This shows...
-
-In @fig-ppcheckandposteriorvsprior-2 we compare the posterior with the prior. This shows... 
-
-# ```{r}
-# #| eval: true
-# #| echo: false
-# #| message: false
-# #| warning: false
-# #| label: fig-ppcheckandposteriorvsprior
-# #| layout-ncol: 2
-# #| fig-cap: "Examining how the model fits, and is affected by, the data"
-# #| fig-subcap: ["Posterior prediction check", "Comparing the posterior with the prior"]
-# 
-# pp_check(first_model) +
-#   theme_classic() +
-#   theme(legend.position = "bottom")
-# 
-# posterior_vs_prior(first_model) +
-#   theme_minimal() +
-#   scale_color_brewer(palette = "Set1") +
-#   theme(legend.position = "bottom") +
-#   coord_flip()
-# ```
-
-## Diagnostics
-
-@fig-stanareyouokay-1 is a trace plot. It shows... This suggests...
-
-@fig-stanareyouokay-2 is a Rhat plot. It shows... This suggests...
-
-# ```{r}
-# #| echo: false
-# #| eval: true
-# #| message: false
-# #| warning: false
-# #| label: fig-stanareyouokay
-# #| fig-cap: "Checking the convergence of the MCMC algorithm"
-# #| fig-subcap: ["Trace plot", "Rhat plot"]
-# #| layout-ncol: 2
-# 
-# plot(first_model, "trace")
-# 
-# plot(first_model, "rhat")
-# ```
-
-
+In response to these weaknesses, subsequent steps should involve expanding the dataset to account for these additional dimensions and exploring predictive models to forecast industry trends. Engaging with the latest advancements in technology, like AI and blockchain, and understanding their impact on music consumption and distribution could also offer valuable contributions to the literature. By addressing these gaps, future research can provide a more holistic understanding of the industry and its trajectory in the digital age.
 
 \newpage
 
