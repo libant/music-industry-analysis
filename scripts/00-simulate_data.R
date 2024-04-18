@@ -11,6 +11,8 @@ library(tidyverse) #loads the tidyverse library
 library(ggplot2) #loads the ggplot2 library
 
 #### Simulate data ####
+set.seed(555) #sets up a seed for reproducibility
+
 years <- 1973:2020 #creates the "year" variable
 
 physical_sales_revenue <- c(seq(2000, 5000, length.out = 24), 

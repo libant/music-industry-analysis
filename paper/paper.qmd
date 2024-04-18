@@ -88,7 +88,7 @@ Each category represents a particular mode of music consumption, and the revenue
 
 ## Data Characteristics {#sec-characteristics}
 
-The RIAA dataset published by @RIAA was cleaned to account for the irrelevance of the "number_of_records" and "metric" columns. Additional variables such as "average_revenue_per_format" and "yearly_revenue_format" were created to help with the generation of certain graphs. They were created by adding up the revenue per format and either finding the average of it or grouping the revenue by year. Using the dataset, we were able to replicate all of the means and standard deviations of the music formats, as shown in @tbl-summary1. The summary statistics illustrate how the high standard deviations across the board reflect a wide variation in yearly revenue, which could be attributed to a certain format's lifecycle or other market changes over time. For example, 8-Track tapes, despite their irrelevance, have an intriguingly high mean revenue.
+The RIAA dataset published by @RIAA was cleaned to account for the irrelevance of the "number_of_records" and "metric" columns. Additional variables such as "average_revenue_per_format", "top_formats", and "yearly_revenue_format" were created to help with the generation of certain graphs. They were created by adding up the revenue per format and either finding the average of it or grouping the revenue by year. Using the dataset, we were able to replicate all of the means and standard deviations of the music formats, as shown in @tbl-summary1. The summary statistics illustrate how the high standard deviations across the board reflect a wide variation in yearly revenue, which could be attributed to a certain format's lifecycle or other market changes over time. For example, 8-Track tapes, despite their irrelevance, have an intriguingly high mean revenue.
 
 However, newer formats like digital downloads present lower mean revenues and relatively lower standard deviations, indicating a more consistent performance year-over-year but at a lower profitability scale. This could reflect market saturation (which is growing exponentially in the age of the internet), pricing strategies, or the competition from streaming services. The disparity between these formats highlights the evolution of music consumption, with digital formats overtaking physical mediums and reflecting changing consumer preferences and the influence of technological advancements such as social media and streaming services on the music industry's revenue streams.
 
@@ -102,8 +102,10 @@ However, newer formats like digital downloads present lower mean revenues and re
 #| message: false
 #| results: asis
 
+# read the dataset from a parquet file
 music_data <- read_parquet("/Users/victortimir/music-industry-analysis/data/analysis_data/musicdata.parquet") 
 
+# develop summary statistics
 summary_stats <- music_data %>%
   group_by(format) %>%
   summarise(
@@ -112,6 +114,7 @@ summary_stats <- music_data %>%
   ) %>%
   ungroup()
 
+# display the summary statistics
 kable(summary_stats, caption = "Summary Statistics for Music Formats")
 ```
 
@@ -125,13 +128,16 @@ kable(summary_stats, caption = "Summary Statistics for Music Formats")
 #| warning: false
 #| results: asis
 
+# read the dataset from a parquet file
 music_data <- read_parquet("/Users/victortimir/music-industry-analysis/data/analysis_data/musicdata.parquet")   
 
+# determine the yearly revenue per format
 yearly_format_revenue <- music_data %>%
   group_by(year, format) %>%
   summarise(total_revenue = sum(value_actual, na.rm = TRUE)) %>%
   ungroup()
 
+# plot the yearly revenue per format
 ggplot(yearly_format_revenue, aes(x = year, y = total_revenue, fill = format)) +
   geom_bar(stat = "identity", position = "stack") +
   theme_minimal() +
@@ -150,9 +156,11 @@ ggplot(yearly_format_revenue, aes(x = year, y = total_revenue, fill = format)) +
 #| tbl-cap: "Music Industry Average Revenue per Format"
 #| warning: false
 #| results: asis
-#| 
+
+# read the dataset from a parquet file
 music_data <- read_parquet("/Users/victortimir/music-industry-analysis/data/analysis_data/musicdata.parquet") 
 
+# determine the average revenue per format
 average_revenue_per_format <- music_data %>%
   mutate(value_actual = as.numeric(value_actual)) %>%
   filter(value_actual > 0) %>%
@@ -163,6 +171,7 @@ average_revenue_per_format <- music_data %>%
 
 average_revenue_per_format$average_revenue <- round(average_revenue_per_format$average_revenue, 2)
 
+# create a table of the average revenue per format
 average_revenue_table <- kable(head(average_revenue_per_format, 20), 
                                padding = 5, 
                                format = "markdown",
@@ -220,8 +229,10 @@ Interactions between different formats are also of interest. For example, the co
 #| warning: false
 #| results: asis
 
+# read the dataset from a parquet file
 music_data <- read_parquet("/Users/victortimir/music-industry-analysis/data/analysis_data/musicdata.parquet") 
 
+# find the top 5 music formats based on total revenue.
 top_formats <- music_data %>%
   group_by(format) %>%
   summarise(total_revenue = sum(value_actual, na.rm = TRUE)) %>%
@@ -231,11 +242,13 @@ top_formats <- music_data %>%
 top_formats_data <- music_data %>%
   filter(format %in% top_formats)
 
+# calculate the year-over-year percentage change in revenue for each format
 top_formats_data <- top_formats_data %>%
   group_by(format) %>%
   mutate(yoy_change = (value_actual / lag(value_actual) - 1) * 100) %>%
   ungroup()
 
+# plot the year-over-year percentage change in revenue for each format
 ggplot(top_formats_data, aes(x = year, y = yoy_change, color = format)) +
   geom_line() +
   scale_y_continuous(limits = c(-100, 100),
@@ -262,17 +275,21 @@ ggplot(top_formats_data, aes(x = year, y = yoy_change, color = format)) +
 #| warning: false
 #| results: asis
 
+# read the dataset from a parquet file
 music_data <- read_parquet("/Users/victortimir/music-industry-analysis/data/analysis_data/musicdata.parquet") 
 
+# group the data by the "format" column, calculate the total revenue for each format and then select the top 7 formats by total revenue
 top_formats <- music_data %>%
   group_by(format) %>%
   summarise(total_revenue = sum(value_actual, na.rm = TRUE)) %>%
   top_n(7, total_revenue) %>%
   pull(format)
 
+# filter the original music_data to include only the rows where the format is one of the top formats
 music_data_top <- music_data %>%
   filter(format %in% top_formats)
 
+# plot the data using ggplot
 ggplot(music_data_top, aes(x = year, y = value_actual, color = format, group = format)) +
   geom_line() +
   scale_y_continuous(labels = scales::comma) + # Use scales package to format y axis
@@ -299,8 +316,10 @@ Our results are summarized in @tbl-modelresults.
 
 library(rstanarm)
 
+# read the dataset from a parquet file
 music_data <- read_parquet("/Users/victortimir/music-industry-analysis/data/analysis_data/musicdata.parquet") 
 
+# construct a bayesian model using the brm function from the rstanarm package
 bayesian_model <- brm(value_actual ~ format, data = music_data, 
                       family = gaussian(), 
                       prior = c(set_prior("normal(0, 10)", class = "b"),
@@ -308,6 +327,8 @@ bayesian_model <- brm(value_actual ~ format, data = music_data,
                       chains = 4, iter = 2000, warmup = 500, 
                       control = list(adapt_delta = 0.95),
                       refresh = 0)
+
+# save the bayesian model to an RDS file for future use
 saveRDS(bayesian_model, file = "second_model.rds")
 ```
 
@@ -320,6 +341,7 @@ saveRDS(bayesian_model, file = "second_model.rds")
 #| warning: false
 #| results: asis
 
+# display the summary of the bayesian model in a table
 modelsummary::modelsummary(
   list("Bayesian Linear Regression" = bayesian_model),
   output = "markdown",
