@@ -7,14 +7,16 @@
 # Pre-requisites: 01-download_data.R
 
 #### Workspace setup ####
-library(tidyverse)
+library(tidyverse) #loads the tidyverse library
+library(janitor) #loads the janitor library
+library(arrow) #loads the arrow library
 
 #### Clean data ####
-music_data <- read_csv("data/raw_data/MusicData.csv")
+music_data <- read_csv("data/raw_data/rawmusicdata.csv") #reads the raw dataset
 
 music_data <- music_data %>%
   clean_names() %>%
-  select(-index) %>% 
+  select(-metric) %>%
   select(-number_of_records) %>%
   mutate(
     year = as.numeric(year),
@@ -23,4 +25,6 @@ music_data <- music_data %>%
   drop_na()
 
 #### Save data ####
-write_csv(cleaned_data, "data/analysis_data/analysis_data.csv")
+write_parquet(music_data, "data/analysis_data/musicdata.parquet")
+
+

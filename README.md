@@ -8,9 +8,9 @@ In this project, we examine data about the music industry, focusing on revenue t
 
 The repo is structured as:
 
--   `data/raw_data` contains the raw data as obtained from Kaggle user "Larxel".
+-   `data/raw_data` contains the raw data as obtained from Kaggle user "Larxel" and that same data that was downloaded via RStudio.
 -   `data/analysis_data` contains the cleaned dataset that was constructed.
--   `model` contains the fitted model. 
+-   `model` contains fitted models. 
 -   `other` contains details about LLM chat interactions and sketches.
 -   `paper` contains the files used to generate the paper, including the Quarto document and reference bibliography file, as well as the PDF of the paper. 
 -   `scripts` contains the R scripts used to simulate, download and clean data in addition to some tests.

@@ -8,26 +8,30 @@
 
 
 #### Workspace setup ####
-library(tidyverse)
-library(testthat)
+library(tidyverse) #loads the tidyverse library
+library(testthat) #loads the testthat library
 
 #### Test data ####
-cleaned_data <- read_csv("data/analysis_data/analysis_data.csv")
+music_data <- read_csv("/Users/victortimir/music-industry-analysis/data/analysis_data/musicdata.csv")
 
 test_that("All expected columns are present", {
-  expect_true(all(c("Format", "Metric", "Year", "Value (Actual)") %in% 
+  expect_true(all(c("format", "year", "value_actual") %in% 
                     colnames(music_data)))
 })
+#tests if the cleaned data has the expected columns
 
 test_that("No missing values in crucial columns", {
   expect_equal(sum(is.na(music_data$year)), 0)
   expect_equal(sum(is.na(music_data$value_actual)), 0)
 })
+#tests if there are no missing values
 
 test_that("Year column contains valid years", {
   expect_true(all(music_data$year >= 1973 & music_data$year <= 2020))
 })
+#tests that the year column contains only valid years
 
-test_that("Value (Actual) column contains non-negative numbers", {
-  expect_true(all(music_data$value_actual >= 0))
+test_that("Value column doesn't contain unreasonably high values", {
+  expect_true(all(music_data$value_actual <= 10000000))
 })
+#tests that the value column doesn't contain values exceeding 10000000

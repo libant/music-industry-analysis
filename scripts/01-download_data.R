@@ -12,10 +12,9 @@ library(tidyverse)
 library(sf)
 
 #### Download data ####
-music_data <- read_csv("/Users/victortimir/Downloads/MusicData.csv")
+music_data <- read_csv("/Users/victortimir/music-industry-analysis/data/raw_data/musicdata-1.csv")
 
 #### Save data ####
-# change music_data to whatever name you assigned when you downloaded it.
-write_csv(music_data, "data/raw_data/raw_data.csv") 
+write_csv(music_data, "data/raw_data/rawmusicdata.csv") 
 
          

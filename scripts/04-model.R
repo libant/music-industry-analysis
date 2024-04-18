@@ -8,19 +8,16 @@
 
 
 #### Workspace setup ####
-library(tidyverse)
-library(rstanarm)
+library(tidyverse) #loads the tidyverse library
+library(rstanarm) #loads the rstanarm library
 
 #### Read data ####
-cleaned_data <- read_csv("data/analysis_data/analysis_data.csv")
+cleaned_data <- read_csv("data/analysis_data/musicdata.csv")
 
 ### Model data ####
-music_data <- music_data %>%
-  mutate(format_binary = if_else(format == "Digital", 1, 0)) 
-
 music_model <- 
   stan_glm(
-    formula = value_actual ~ year + format_binary,
+    formula = value_actual ~ year,
     data = music_data,
     family = gaussian(),
     prior = normal(location = 0, scale = 2.5, autoscale = TRUE),
@@ -28,7 +25,6 @@ music_model <-
     prior_aux = exponential(rate = 1, autoscale = TRUE),
     seed = 555
   )
-
 
 #### Save model ####
 saveRDS(
